@@ -39,7 +39,7 @@ $where = implode(' AND ', $condicoes);
 
 $qtd = Produto:: getQtd($where);
 
-$pagination = new Pagination($qtd, $_GET['pagina'] ?? 1, 5);
+$pagination = new Pagination($qtd, $_GET['pagina'] ?? 1, 200);
 
 $listar = Produto::getList('p.id as id,
                             p.codigo as codigo,

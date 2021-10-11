@@ -3,6 +3,7 @@
 require __DIR__ . '../../../vendor/autoload.php';
 
 use App\Entidy\Produto;
+use App\Entidy\Prodvenda;
 use App\Entidy\Venda;
 use  \App\Session\Login;
 use Dompdf\Dompdf;
@@ -14,6 +15,8 @@ $usuarios_id = $usuariologado['id'];
 $usuarios_nome = $usuariologado['nome'];
 
 $total_estoque = 0;
+
+$codigo = substr(uniqid(rand()), 0, 6);
 
 if (isset($_POST['troco'])) {
 
@@ -75,7 +78,14 @@ if(isset($_SESSION['pagamento-insert'])){
         $value->estoque = $total_estoque;
         $value->atualizar();
 
-        $codigo = substr(uniqid(rand()), 0, 6);
+        $item = new Prodvenda;
+        $item->qtd                     = $qtd;
+        $item->valor                   = $subtotal;
+        $item->codigo                  = $codigo;
+        $item->produtos_id             = $produto_id;
+        $item->clientes_id             = $cliente;
+        $item->forma_pagamento_id      = $pagamento;
+        $item->cadastar();
         
     }
 
