@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 11-Out-2021 às 03:11
+-- Tempo de geração: 12-Out-2021 às 05:19
 -- Versão do servidor: 10.4.17-MariaDB
 -- versão do PHP: 7.4.14
 
@@ -72,6 +72,28 @@ INSERT INTO `cargos` (`id`, `descricao`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `catdespesas`
+--
+
+CREATE TABLE `catdespesas` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(105) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `catdespesas`
+--
+
+INSERT INTO `catdespesas` (`id`, `nome`) VALUES
+(1, 'Àgua'),
+(2, 'Luz'),
+(3, 'Compras'),
+(11, 'Telefone'),
+(15, 'Vendas de produto');
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `categorias`
 --
 
@@ -136,9 +158,40 @@ CREATE TABLE `forma_pagamento` (
 
 INSERT INTO `forma_pagamento` (`id`, `nome`) VALUES
 (2, 'Dinheiro'),
-(3, 'Cartão de Crédito'),
-(4, 'Crtão de débito'),
-(5, 'Pix');
+(3, 'Cartão de Crédito 1x'),
+(4, 'Cartão de Crédito 2x'),
+(5, 'Cartão de Crédito 3x'),
+(6, 'Cartão de Crédito 4x'),
+(7, 'Cartão de Débito'),
+(8, 'Pix');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `movimentacoes`
+--
+
+CREATE TABLE `movimentacoes` (
+  `id` int(11) NOT NULL,
+  `data` timestamp NULL DEFAULT current_timestamp(),
+  `troco` decimal(10,2) DEFAULT NULL,
+  `valor` decimal(10,2) DEFAULT NULL,
+  `descricao` varchar(335) DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `usuarios_id` int(11) NOT NULL,
+  `catdespesas_id` int(11) NOT NULL,
+  `forma_pagamento_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `movimentacoes`
+--
+
+INSERT INTO `movimentacoes` (`id`, `data`, `troco`, `valor`, `descricao`, `tipo`, `status`, `usuarios_id`, `catdespesas_id`, `forma_pagamento_id`) VALUES
+(28, '2021-10-12 03:12:52', '0.00', '21.00', 'Produto foi vendido...', 1, 1, 4, 15, 8),
+(29, '2021-10-12 03:13:32', '0.50', '11.00', 'Produto foi vendido...', 1, 1, 4, 15, 2),
+(30, '2021-10-12 03:16:55', '0.00', '10.50', 'Produto foi vendido...', 1, 0, 4, 15, 4);
 
 -- --------------------------------------------------------
 
@@ -187,8 +240,8 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id`, `data`, `codigo`, `barra`, `nome`, `qtd`, `estoque`, `valor_compra`, `valor_venda`, `status`, `foto`, `aplicacao`, `categorias_id`, `usuarios_id`) VALUES
-(13, '2021-10-11 01:05:00', 210171, '7896541125632', 'CARRO RENAULT CLIO', 0, 21, '70.00', '10.50', 0, './imgs/01-11.jpg', 'CLIO 2.0', 53, 4),
-(14, '2021-10-11 01:05:00', 106026, '7896541125637', 'SWT -090889', 0, 21, '35.00', '30.00', 0, './imgs/03-9.jpg', 'TRESTE ', 53, 4);
+(13, '2021-10-12 03:16:00', 210171, '7896541125632', 'CARRO RENAULT CLIO', 0, 12, '70.00', '10.50', 0, './imgs/01-11.jpg', 'CLIO 2.0', 53, 4),
+(14, '2021-10-12 02:51:00', 106026, '7896541125637', 'SWT -090889', 0, 16, '35.00', '30.00', 0, './imgs/03-9.jpg', 'TRESTE ', 53, 4);
 
 -- --------------------------------------------------------
 
@@ -260,7 +313,19 @@ INSERT INTO `vendas` (`id`, `data`, `codigo`, `recebido`, `troco`, `usuarios_id`
 (89, '2021-10-11 00:55:06', 476614, '40.00', '4.53', 4, 16, 2, 1, 1),
 (90, '2021-10-11 00:56:22', 105084, '10.00', '0.55', 4, 15, 2, 1, 1),
 (91, '2021-10-11 01:03:09', 420211, '67.00', '0.55', 4, 15, 2, 1, 1),
-(92, '2021-10-11 01:05:20', 135827, '81.00', '0.00', 4, 16, 5, 1, 1);
+(92, '2021-10-11 01:05:20', 135827, '81.00', '0.00', 4, 16, 5, 1, 1),
+(93, '2021-10-12 02:27:31', 146910, '11.00', '0.50', 4, 15, 2, 1, 1),
+(94, '2021-10-12 02:28:28', 135512, '35.00', '5.00', 4, 15, 3, 1, 1),
+(95, '2021-10-12 02:33:58', 100393, '11.00', '0.50', 4, 15, 2, 1, 1),
+(96, '2021-10-12 02:34:33', 207897, '35.00', '5.00', 4, 16, 8, 1, 1),
+(97, '2021-10-12 02:35:17', 953341, '41.00', '0.50', 4, 16, 5, 1, 1),
+(98, '2021-10-12 02:40:37', 178390, '10.00', '0.55', 4, 15, 2, 1, 1),
+(99, '2021-10-12 02:41:30', 382466, '25.00', '1.00', 4, 15, 4, 1, 1),
+(100, '2021-10-12 02:51:08', 109025, '30.00', '0.00', 4, 16, 6, 1, 1),
+(101, '2021-10-12 02:52:15', 166333, '11.00', '0.50', 4, 15, 8, 1, 1),
+(102, '2021-10-12 03:12:52', 195698, '21.00', '0.00', 4, 15, 8, 1, 1),
+(103, '2021-10-12 03:13:32', 576211, '11.00', '0.50', 4, 16, 2, 1, 1),
+(104, '2021-10-12 03:16:55', 162953, '10.50', '0.00', 4, 15, 4, 1, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -276,6 +341,12 @@ ALTER TABLE `acessos`
 -- Índices para tabela `cargos`
 --
 ALTER TABLE `cargos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `catdespesas`
+--
+ALTER TABLE `catdespesas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -296,6 +367,15 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `forma_pagamento`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `movimentacoes`
+--
+ALTER TABLE `movimentacoes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_movimentacoes_usuarios1_idx` (`usuarios_id`),
+  ADD KEY `fk_movimentacoes_catdespesas1_idx` (`catdespesas_id`),
+  ADD KEY `fk_movimentacoes_forma_pagamento1_idx` (`forma_pagamento_id`);
 
 --
 -- Índices para tabela `mov_cat`
@@ -354,6 +434,12 @@ ALTER TABLE `cargos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de tabela `catdespesas`
+--
+ALTER TABLE `catdespesas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
@@ -369,7 +455,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de tabela `forma_pagamento`
 --
 ALTER TABLE `forma_pagamento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de tabela `movimentacoes`
+--
+ALTER TABLE `movimentacoes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de tabela `mov_cat`
@@ -399,11 +491,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vendas`
 --
 ALTER TABLE `vendas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- Restrições para despejos de tabelas
 --
+
+--
+-- Limitadores para a tabela `movimentacoes`
+--
+ALTER TABLE `movimentacoes`
+  ADD CONSTRAINT `fk_movimentacoes_catdespesas1` FOREIGN KEY (`catdespesas_id`) REFERENCES `catdespesas` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimentacoes_forma_pagamento1` FOREIGN KEY (`forma_pagamento_id`) REFERENCES `forma_pagamento` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_movimentacoes_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `produtos`

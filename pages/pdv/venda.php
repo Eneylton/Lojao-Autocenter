@@ -57,7 +57,7 @@ if (isset($_POST['receber'])) {
     $clienteLocalidade = $clientes->localidade;
     $clienteUF = $clientes->uf;
 
-    $pagamentos = FormaPagamento :: getID('*','forma_pagamento;',$_POST['formaPagamento_id'],null,null);
+    $pagamentos = FormaPagamento :: getID('*','forma_pagamento',$form_pag ,null,null);
 
     $forma = $pagamentos->nome;
 }

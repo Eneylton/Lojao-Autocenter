@@ -304,18 +304,18 @@ $acesso = $usuariologado['acessos_id'];
             </p>
           </a>
           <ul class="nav nav-treeview">
+          <li class="nav-item">
+              <a href="../../pages/catdespesas/catdespesas-list.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Categorias </p>
+              </a>
             <li class="nav-item">
-              <a href="../../pages/usuarios/usuario-list.php" class="nav-link">
+              <a href="../../pages/movimentacao/movimentacao-list.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Movimentação</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="../../pages/movcate/movcate-list.php" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Categoria</p>
-              </a>
-            </li>
+          
             <li class="nav-item">
               <a href="../../pages/vendas/venda-list.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>

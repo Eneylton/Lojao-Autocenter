@@ -6,35 +6,34 @@ use \App\Db\Database;
 
 use \PDO;
 
-class Cargo
+class Catdespesa
 {
 
 
     public $id;
-    public $descricao;
+    public $nome;
 
     public function cadastar()
     {
 
 
-        $obdataBase = new Database('cargos');
+        $obdataBase = new Database('catdespesas');
 
         $this->id = $obdataBase->insert([
 
-            'descricao'              => $this->descricao
+            'nome'              => $this->nome
 
         ]);
 
         return true;
     }
 
-
-
+    
     public function atualizar()
     {
-        return (new Database('cargos'))->update('id = ' . $this->id, [
+        return (new Database('catdespesas'))->update('id = ' . $this->id, [
 
-            'descricao'              => $this->descricao
+            'nome'              => $this->nome
         ]);
     }
 
@@ -42,7 +41,7 @@ class Cargo
     public static function getList($fields = null, $table = null, $where = null, $order = null, $limit = null)
     {
 
-        return (new Database('cargos'))->select($fields, $table, $where, $order, $limit)
+        return (new Database('catdespesas'))->select($fields, $table, $where, $order, $limit)
             ->fetchAll(PDO::FETCH_CLASS, self::class);
     }
 
@@ -51,7 +50,7 @@ class Cargo
     public static function getQtd($fields = null, $table = null, $where = null, $order = null, $limit = null)
     {
 
-        return (new Database('cargos'))->select('COUNT(*) as qtd', 'cargos', null, null)
+        return (new Database('catdespesas'))->select('COUNT(*) as qtd', 'catdespesas', null, null)
             ->fetchObject()
             ->qtd;
     }
@@ -59,21 +58,20 @@ class Cargo
 
     public static function getID($fields, $table, $where, $order, $limit)
     {
-        return (new Database('cargos'))->select($fields, $table, 'id = ' . $where, $order, $limit)
+        return (new Database('catdespesas'))->select($fields, $table, 'id = ' . $where, $order, $limit)
             ->fetchObject(self::class);
     }
 
-  
 
     public function excluir()
     {
-        return (new Database('cargos'))->delete('id = ' . $this->id);
+        return (new Database('catdespesas'))->delete('id = ' . $this->id);
     }
 
 
     public static function getUsuarioPorEmail($email)
     {
 
-        return (new Database('cargos'))->select('email = "' . $email . '"')->fetchObject(self::class);
+        return (new Database('catdespesas'))->select('email = "' . $email . '"')->fetchObject(self::class);
     }
 }
