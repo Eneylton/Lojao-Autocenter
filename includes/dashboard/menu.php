@@ -325,6 +325,12 @@ $acesso = $usuariologado['acessos_id'];
                 <p>Minhas vendas</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="pages/orcamento/orcamento-list.php" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Orçamentos</p>
+              </a>
+            </li>
           </ul>
         </li>
 

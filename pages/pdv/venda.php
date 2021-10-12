@@ -96,7 +96,7 @@ if (isset($_SESSION['dados-venda'])) {
         <td>'.$qtd.' </td>
         <td> R$ '.number_format($uni,"2",",",".").' </td>
         <td> '.intval($desc).' </td>
-        <td> R$ '.number_format(floatval($subtotal_desconto),"2",",",".").' </td>
+        <td> R$ '.number_format($subtotal_desconto,"2",",",".").' </td>
         </tr>
     ';
 
